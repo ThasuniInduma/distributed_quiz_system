@@ -13,6 +13,7 @@ const userAuth = (req, res, next) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
+    // Set both req.user and req.body.userId for backward compatibility
     req.user = {
       id: decoded.id,
       role: decoded.role
