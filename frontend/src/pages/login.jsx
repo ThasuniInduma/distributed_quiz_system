@@ -22,7 +22,7 @@ export default function Login() {
       const res = await axios.post(
         'http://localhost:4000/api/auth/login',
         { email, password },
-        { withCredentials: true } // ✅ REQUIRED for cookie auth
+        { withCredentials: true } // REQUIRED for cookie auth
       );
 
       if (!res.data.success) {
@@ -30,10 +30,10 @@ export default function Login() {
         return;
       }
 
-      // ✅ Save user info (NO token)
+      // Save user info (NO token)
       localStorage.setItem('user', JSON.stringify(res.data.user));
 
-      // ✅ Role based navigation
+      // Role based navigation
       const role = res.data.user.role;
 
       if (role === 'student') {
