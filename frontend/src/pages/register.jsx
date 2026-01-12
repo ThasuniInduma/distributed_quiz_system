@@ -226,7 +226,7 @@ export default function Register() {
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
                 className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition bg-white"
-                placeholder="John Doe"
+                placeholder="Full Name"
               />
             </div>
 
