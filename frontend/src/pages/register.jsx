@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+// Gateway URL - connects to API Gateway instead of single server
+const backendUrl = 'http://localhost:3000';
+
 export default function Register() {
   const [role, setRole] = useState('student');
   const [fullName, setFullName] = useState('');

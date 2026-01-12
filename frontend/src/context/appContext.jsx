@@ -8,7 +8,8 @@ export const AppContextprovider = ({ children }) => {
   // 🔐 Always send cookies
   axios.defaults.withCredentials = true;
 
-  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+  // Gateway URL - distributed system entry point
+  const backendUrl = 'http://localhost:3000';
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState(null);

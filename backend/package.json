@@ -7,16 +7,23 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "server": "nodemon server.js"
+    "server": "nodemon server.js",
+    "distributed": "node start-distributed.js",
+    "gateway": "node gateway.js",
+    "server-1": "node distributed-server.js server-1 0",
+    "server-2": "node distributed-server.js server-2 1",
+    "server-3": "node distributed-server.js server-3 2"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.13.2",
     "bcryptjs": "^3.0.3",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
+    "http-proxy-middleware": "^2.0.9",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.1.2",
     "nodemailer": "^7.0.12",
