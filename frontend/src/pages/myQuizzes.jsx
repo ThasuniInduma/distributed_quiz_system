@@ -74,6 +74,12 @@ const MyQuizzes = () => {
     return `${minutes}m ${seconds}s`;
   };
 
+  // Copy Quiz ID to clipboard
+  const copyQuizId = (quizId) => {
+    navigator.clipboard.writeText(quizId);
+    alert(`Quiz ID "${quizId}" copied to clipboard!`);
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Navigation */}
@@ -108,7 +114,18 @@ const MyQuizzes = () => {
               return (
                 <div key={quiz._id} className="bg-white border border-gray-200 rounded-lg shadow-sm p-6 flex justify-between items-center">
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-800">{quiz.name}</h3>
+                    <div className="flex items-center gap-3 mb-2">
+                      <h3 className="text-lg font-semibold text-gray-800">{quiz.name}</h3>
+                      {quiz.quizId && (
+                        <button
+                          onClick={() => copyQuizId(quiz.quizId)}
+                          className="bg-cyan-100 hover:bg-cyan-200 text-cyan-700 px-3 py-1 rounded-full text-sm font-mono font-bold transition-colors cursor-pointer"
+                          title="Click to copy Quiz ID"
+                        >
+                          ID: {quiz.quizId}
+                        </button>
+                      )}
+                    </div>
                     <p className="text-gray-500">Date: {quiz.date} | Time: {quiz.time} | Duration: {quiz.duration} min</p>
                     {status === 'upcoming' && countdown && (
                       <p className="text-yellow-600 font-medium">Starts in: {countdown}</p>

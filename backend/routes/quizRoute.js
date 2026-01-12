@@ -1,6 +1,6 @@
-// routes/quizRoutes.js
 import express from 'express';
 import Quiz from '../models/quizModel.js';
+import Participant from '../models/participantsModel.js'; // ADD THIS
 import userAuth from '../middleware/userAuth.js';
 
 const quizRouter = express.Router();
@@ -75,6 +75,45 @@ quizRouter.get('/:id', userAuth, async (req, res) => {
 });
 
 // ======================
+// GET PARTICIPANTS - Teacher views quiz participants (NEW)
+// ======================
+quizRouter.get('/:id/participants', userAuth, async (req, res) => {
+  try {
+    const quiz = await Quiz.findOne({
+      _id: req.params.id,
+      teacherId: req.user.id
+    });
+
+    if (!quiz) {
+      return res.status(404).json({ 
+        success: false, 
+        message: 'Quiz not found or you do not have permission' 
+      });
+    }
+
+    const participants = await Participant.find({ 
+      quizId: quiz.quizId 
+    }).sort({ joinedAt: -1 });
+
+    res.json({ 
+      success: true, 
+      participants,
+      quiz: {
+        quizId: quiz.quizId,
+        name: quiz.name,
+        questions: quiz.questions
+      }
+    });
+  } catch (error) {
+    console.error('Get participants error:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: error.message 
+    });
+  }
+});
+
+// ======================
 // CREATE quiz (teacher only)
 // ======================
 quizRouter.post('/', userAuth, async (req, res) => {
@@ -84,7 +123,7 @@ quizRouter.post('/', userAuth, async (req, res) => {
     const quizData = {
       ...req.body,
       quizId,
-      teacherId: req.user.id // ✅ Use authenticated user ID
+      teacherId: req.user.id
     };
 
     const quiz = new Quiz(quizData);
@@ -147,7 +186,7 @@ quizRouter.patch('/:id/toggle-active', userAuth, async (req, res) => {
 // ======================
 quizRouter.delete('/:id', userAuth, async (req, res) => {
   try {
-    const quiz = await Quiz.findOneAndDelete({
+    const quiz = await Quiz.findOne({
       _id: req.params.id,
       teacherId: req.user.id
     });
@@ -155,6 +194,12 @@ quizRouter.delete('/:id', userAuth, async (req, res) => {
     if (!quiz) {
       return res.status(404).json({ success: false, message: 'Quiz not found or you do not have permission to delete it' });
     }
+
+    // Delete all participants for this quiz
+    await Participant.deleteMany({ quizId: quiz.quizId });
+    
+    // Delete the quiz
+    await Quiz.findByIdAndDelete(quiz._id);
 
     res.json({ success: true, message: 'Quiz deleted successfully' });
   } catch (error) {

@@ -13,6 +13,10 @@ import CreateQuiz from './pages/createQuiz'
 import MyQuizzes from './pages/myQuizzes'
 import QuizEdit from './pages/quizEdit'
 import QuizParticipants from './pages/quizParticipants'
+import { QuizLobby } from './pages/quizlobby'
+import TakeQuiz from './pages/takeQuiz'
+import QuizResults from './pages/quizResults'
+import Leaderboard from './pages/leaderboard'
 
 function App() {
 
@@ -29,6 +33,10 @@ function App() {
         <Route path="/my-quizzes" element={<MyQuizzes />} />
         <Route path="/quiz-edit/:quizId" element={<QuizEdit />} />
         <Route path="/quiz-participants/:quizId" element={<QuizParticipants />} />
+        <Route path="/quiz-lobby/:quizId" element={<QuizLobby />} />
+        <Route path="/take-quiz/:quizId" element={<TakeQuiz />} />
+        <Route path="/quiz-results/:quizId" element={<QuizResults />} />
+        <Route path="/leaderboard/:quizId" element={<Leaderboard />} />
       </Routes>
     </>
   )
