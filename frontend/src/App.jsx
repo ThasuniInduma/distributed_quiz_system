@@ -11,6 +11,8 @@ import Teacher from './pages/teacher'
 import Admin from './pages/admin'
 import CreateQuiz from './pages/createQuiz'
 import MyQuizzes from './pages/myQuizzes'
+import QuizEdit from './pages/quizEdit'
+import QuizParticipants from './pages/quizParticipants'
 
 function App() {
 
@@ -25,6 +27,8 @@ function App() {
         <Route path='/admin' element={<Admin/>}/>
         <Route path="/create-quiz" element={<CreateQuiz />} />
         <Route path="/my-quizzes" element={<MyQuizzes />} />
+        <Route path="/quiz-edit/:quizId" element={<QuizEdit />} />
+        <Route path="/quiz-participants/:quizId" element={<QuizParticipants />} />
       </Routes>
     </>
   )
