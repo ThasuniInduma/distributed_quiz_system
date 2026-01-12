@@ -15,10 +15,12 @@ const Home = () => {
         <div className="flex items-center gap-2">
           <div className="bg-cyan-500 p-1.5 rounded-lg text-white">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
-            </svg>
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                  d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />            </svg>
           </div>
-          <span className="text-2xl font-bold text-slate-800">QuizHub</span>
+          <span className="text-2xl font-semibold text-gray-800">
+              Quiz<span className="text-cyan-500">Hub</span>
+            </span>
         </div>
         <div className="flex gap-4 items-center">
           <button onClick={handleAction} className="text-slate-600 font-medium hover:text-cyan-600">Login</button>
@@ -32,11 +34,11 @@ const Home = () => {
       <header className="bg-gradient-to-br from-slate-800 via-slate-700 to-cyan-900  text-white py-20 px-4 text-center">
         <div className="max-w-4xl mx-auto">
           <div className="inline-block bg-slate-800 border border-slate-700 rounded-full px-4 py-1 mb-6 text-sm text-cyan-400">
-            Distributed Systems Project — University of Kelaniya
+            Next-Gen Quizzing for Modern Classrooms
           </div>
           <h1 className="text-5xl md:text-6xl font-extrabold mb-6 leading-tight">
-            Distributed Online <br />
-            <span className="text-cyan-400">Quiz System</span>
+            Quizzes That Think <br />
+            <span className="text-cyan-400"> Systems That Scale</span>
           </h1>
           <p className="text-slate-400 text-lg mb-10 max-w-2xl mx-auto">
             A scalable, reliable platform for conducting online assessments across multiple servers. 
