@@ -15,7 +15,7 @@ export const AppContextprovider = ({ children }) => {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // ✅ Check authentication state
+  //  Check authentication state
   const getAuthState = async () => {
     try {
       const { data } = await axios.get(`${backendUrl}/api/auth/me`);

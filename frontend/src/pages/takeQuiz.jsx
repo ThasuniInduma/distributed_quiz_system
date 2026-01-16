@@ -200,7 +200,7 @@ const TakeQuiz = () => {
               </p>
             </div>
             <div className={`text-3xl font-bold font-mono ${isTimeRunningOut ? 'text-red-600 animate-pulse' : 'text-cyan-600'}`}>
-              ⏱️ {formatTime(timeRemaining)}
+               {formatTime(timeRemaining)}
             </div>
           </div>
           
