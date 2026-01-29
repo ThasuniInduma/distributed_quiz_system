@@ -77,7 +77,7 @@ export default function Register() {
           <p className="text-slate-200 text-center text-lg leading-relaxed mb-8">
             Create your account and access our distributed quiz platform. Take assessments, create quizzes, or manage the system.
           </p>
-          
+
           <div className="space-y-4 mt-12">
             <div className="bg-slate-600 bg-opacity-40 backdrop-blur-sm rounded-2xl p-6 border border-slate-500">
               <div className="flex items-start gap-4">
@@ -94,7 +94,7 @@ export default function Register() {
                 </div>
               </div>
             </div>
-            
+
             <div className="bg-slate-600 bg-opacity-40 backdrop-blur-sm rounded-2xl p-6 border border-slate-500">
               <div className="flex items-start gap-4">
                 <div className="bg-cyan-500 p-3 rounded-xl">
@@ -108,20 +108,7 @@ export default function Register() {
                 </div>
               </div>
             </div>
-            
-            <div className="bg-slate-600 bg-opacity-40 backdrop-blur-sm rounded-2xl p-6 border border-slate-500">
-              <div className="flex items-start gap-4">
-                <div className="bg-cyan-500 p-3 rounded-xl">
-                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-lg mb-1">Admin</h3>
-                  <p className="text-slate-300 text-sm">Manage system and users</p>
-                </div>
-              </div>
-            </div>
+
           </div>
         </div>
       </div>
@@ -147,20 +134,19 @@ export default function Register() {
             {/* ROLE SELECTION */}
             <div className="mb-6">
               <label className="block text-sm font-medium text-gray-700 mb-3">I am a</label>
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-2 gap-3">
                 <button
                   type="button"
                   onClick={() => setRole('student')}
-                  className={`flex flex-col items-center justify-center py-4 px-3 rounded-xl border-2 transition-all ${
-                    role === 'student'
+                  className={`flex flex-col items-center justify-center py-4 px-3 rounded-xl border-2 transition-all ${role === 'student'
                       ? 'border-cyan-500 bg-cyan-50'
                       : 'border-gray-200 bg-white hover:border-gray-300'
-                  }`}
+                    }`}
                 >
-                  <svg 
+                  <svg
                     className={`w-6 h-6 mb-2 ${role === 'student' ? 'text-cyan-500' : 'text-gray-400'}`}
-                    fill="none" 
-                    stroke="currentColor" 
+                    fill="none"
+                    stroke="currentColor"
                     viewBox="0 0 24 24"
                   >
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5z" />
@@ -174,44 +160,21 @@ export default function Register() {
                 <button
                   type="button"
                   onClick={() => setRole('teacher')}
-                  className={`flex flex-col items-center justify-center py-4 px-3 rounded-xl border-2 transition-all ${
-                    role === 'teacher'
+                  className={`flex flex-col items-center justify-center py-4 px-3 rounded-xl border-2 transition-all ${role === 'teacher'
                       ? 'border-cyan-500 bg-cyan-50'
                       : 'border-gray-200 bg-white hover:border-gray-300'
-                  }`}
+                    }`}
                 >
-                  <svg 
+                  <svg
                     className={`w-6 h-6 mb-2 ${role === 'teacher' ? 'text-cyan-500' : 'text-gray-400'}`}
-                    fill="none" 
-                    stroke="currentColor" 
+                    fill="none"
+                    stroke="currentColor"
                     viewBox="0 0 24 24"
                   >
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                   </svg>
                   <span className={`text-sm font-medium ${role === 'teacher' ? 'text-cyan-600' : 'text-gray-600'}`}>
                     Teacher
-                  </span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => setRole('admin')}
-                  className={`flex flex-col items-center justify-center py-4 px-3 rounded-xl border-2 transition-all ${
-                    role === 'admin'
-                      ? 'border-cyan-500 bg-cyan-50'
-                      : 'border-gray-200 bg-white hover:border-gray-300'
-                  }`}
-                >
-                  <svg 
-                    className={`w-6 h-6 mb-2 ${role === 'admin' ? 'text-cyan-500' : 'text-gray-400'}`}
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                  </svg>
-                  <span className={`text-sm font-medium ${role === 'admin' ? 'text-cyan-600' : 'text-gray-600'}`}>
-                    Admin
                   </span>
                 </button>
               </div>
@@ -260,7 +223,7 @@ export default function Register() {
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
                 >
-                  
+
                 </button>
               </div>
             </div>
@@ -282,7 +245,7 @@ export default function Register() {
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                   className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
                 >
-                  
+
                 </button>
               </div>
             </div>

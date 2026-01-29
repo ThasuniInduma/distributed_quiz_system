@@ -114,7 +114,7 @@ const QuizResults = () => {
           <div className="flex gap-4 justify-center flex-wrap">
             <button
               onClick={() => navigate(`/leaderboard/${quizId}`)}
-              className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-8 py-3 rounded-xl font-bold transition-all transform hover:scale-105 shadow-lg flex items-center gap-2"
+              className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white px-8 py-3 rounded-xl font-bold transition-all transform hover:scale-105 shadow-lg flex items-center gap-2"
             >
               <Trophy className="w-5 h-5" />
               <span>View Leaderboard</span>
@@ -232,7 +232,7 @@ const QuizResults = () => {
         <div className="mt-8 text-center">
           <button
             onClick={() => navigate(`/leaderboard/${quizId}`)}
-            className="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 hover:from-purple-600 hover:via-pink-600 hover:to-red-600 text-white px-12 py-4 rounded-xl font-bold text-lg shadow-2xl transform hover:scale-105 transition-all flex items-center justify-center gap-2 mx-auto"
+            className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white px-12 py-4 rounded-xl font-bold text-lg shadow-2xl transform hover:scale-105 transition-all flex items-center justify-center gap-2 mx-auto"
           >
             <Trophy className="w-6 h-6" />
             <span>View Leaderboard & Compare Your Score</span>
