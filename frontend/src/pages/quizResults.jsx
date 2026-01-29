@@ -90,7 +90,7 @@ const QuizResults = () => {
             <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full mb-4 shadow-lg">
               <CheckCircle className="w-10 h-10 text-white" />
             </div>
-            <h1 className="text-4xl font-bold text-gray-800 mb-2">Quiz Completed! 🎉</h1>
+            <h1 className="text-4xl font-bold text-gray-800 mb-2">Quiz Completed!</h1>
             <p className="text-xl text-gray-600">{quizData.name}</p>
           </div>
 
