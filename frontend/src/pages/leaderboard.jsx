@@ -64,11 +64,11 @@ const Leaderboard = () => {
     }
   };
 
-  const getMedalIcon = (rank, size = "w-8 h-8") => {
-    if (rank === 1) return <Medal className={`${size} text-yellow-500`} fill="currentColor" />;
-    if (rank === 2) return <Medal className={`${size} text-gray-400`} fill="currentColor" />;
-    if (rank === 3) return <Medal className={`${size} text-orange-500`} fill="currentColor" />;
-    return <span className="font-bold text-gray-600">#{rank}</span>;
+  const getRankDisplay = (rank) => {
+    if (rank === 1) return <span className="text-2xl font-bold text-yellow-500">#{rank}</span>;
+    if (rank === 2) return <span className="text-2xl font-bold text-gray-500">#{rank}</span>;
+    if (rank === 3) return <span className="text-2xl font-bold text-orange-500">#{rank}</span>;
+    return <span className="text-xl font-bold text-gray-600">#{rank}</span>;
   };
 
   const getCurrentUserRank = () => {
@@ -106,8 +106,7 @@ const Leaderboard = () => {
             <div className="mt-6 inline-block bg-gradient-to-r from-cyan-50 to-blue-50 border-2 border-cyan-200 rounded-2xl px-8 py-4 shadow-lg">
               <p className="text-lg font-bold flex items-center gap-2">
                 <span className="text-gray-600">Your Rank: </span>
-                {getMedalIcon(currentUserRank, "w-8 h-8")}
-                {currentUserRank > 3 && <span className="text-cyan-600 text-2xl font-bold">#{currentUserRank}</span>}
+                <span className="text-cyan-600 text-2xl font-bold">#{currentUserRank}</span>
               </p>
             </div>
           )}
@@ -202,14 +201,13 @@ const Leaderboard = () => {
                     <tr
                       key={index}
                       className={`transition-all ${isCurrentUser
-                          ? 'bg-gradient-to-r from-cyan-50 to-blue-50 border-l-4 border-cyan-500'
-                          : 'hover:bg-gray-50'
+                        ? 'bg-gradient-to-r from-cyan-50 to-blue-50 border-l-4 border-cyan-500'
+                        : 'hover:bg-gray-50'
                         }`}
                     >
                       <td className="px-6 py-5">
                         <div className="flex items-center gap-3">
-                          {getMedalIcon(rank, "w-8 h-8")}
-                          {rank > 3 && <span className="text-xl font-bold text-gray-600">#{rank}</span>}
+                          {getRankDisplay(rank)}
                           {isCurrentUser && (
                             <span className="bg-cyan-500 text-white px-3 py-1 rounded-full text-xs font-bold">YOU</span>
                           )}
@@ -218,9 +216,9 @@ const Leaderboard = () => {
                       <td className="px-6 py-5">
                         <div className="flex items-center gap-4">
                           <div className={`w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg ${rank === 1 ? 'bg-gradient-to-br from-yellow-400 to-yellow-600' :
-                              rank === 2 ? 'bg-gradient-to-br from-gray-300 to-gray-500' :
-                                rank === 3 ? 'bg-gradient-to-br from-orange-400 to-orange-600' :
-                                  'bg-gradient-to-br from-cyan-500 to-blue-600'
+                            rank === 2 ? 'bg-gradient-to-br from-gray-300 to-gray-500' :
+                              rank === 3 ? 'bg-gradient-to-br from-orange-400 to-orange-600' :
+                                'bg-gradient-to-br from-cyan-500 to-blue-600'
                             }`}>
                             {participant.name.charAt(0).toUpperCase()}
                           </div>
@@ -239,8 +237,8 @@ const Leaderboard = () => {
                       </td>
                       <td className="px-6 py-5 text-center">
                         <span className={`inline-flex px-5 py-2 rounded-xl font-bold text-lg ${participant.percentage >= 80 ? 'bg-green-100 text-green-700' :
-                            participant.percentage >= 60 ? 'bg-yellow-100 text-yellow-700' :
-                              'bg-red-100 text-red-700'
+                          participant.percentage >= 60 ? 'bg-yellow-100 text-yellow-700' :
+                            'bg-red-100 text-red-700'
                           }`}>
                           {participant.percentage}%
                         </span>
