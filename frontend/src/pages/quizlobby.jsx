@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Calendar, Clock, Timer, FileQuestion, Users, Trophy, Play, Home, AlertCircle } from 'lucide-react';
 
 export const QuizLobby = () => {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ export const QuizLobby = () => {
   useEffect(() => {
     const studentName = sessionStorage.getItem('studentName');
     const studentEmail = sessionStorage.getItem('studentEmail');
-    
+
     if (!studentName || !studentEmail) {
       navigate('/student');
       return;
@@ -62,7 +63,7 @@ export const QuizLobby = () => {
 
   const getQuizStatus = () => {
     if (!quizData) return 'loading';
-    
+
     const startTime = new Date(`${quizData.date}T${quizData.time}`);
     const endTime = new Date(startTime.getTime() + quizData.duration * 60000);
 
@@ -73,7 +74,7 @@ export const QuizLobby = () => {
 
   const getCountdown = () => {
     if (!quizData) return '';
-    
+
     const startTime = new Date(`${quizData.date}T${quizData.time}`);
     const diff = startTime - currentTime;
 
@@ -116,22 +117,22 @@ export const QuizLobby = () => {
             <p className="text-gray-600 mb-4">
               Quiz ID: <span className="font-mono font-bold text-cyan-600 text-xl">{quizData.quizId}</span>
             </p>
-            
+
             <div className="flex justify-center gap-6 text-sm text-gray-600 mb-6 flex-wrap">
-              <div className="flex items-center gap-1">
-                <span>📅</span>
+              <div className="flex items-center gap-2">
+                <Calendar className="w-5 h-5 text-purple-500" />
                 <span>{quizData.date}</span>
               </div>
-              <div className="flex items-center gap-1">
-                <span>⏰</span>
+              <div className="flex items-center gap-2">
+                <Clock className="w-5 h-5 text-orange-500" />
                 <span>{quizData.time}</span>
               </div>
-              <div className="flex items-center gap-1">
-                <span>⏱️</span>
+              <div className="flex items-center gap-2">
+                <Timer className="w-5 h-5 text-red-500" />
                 <span>{quizData.duration} min</span>
               </div>
-              <div className="flex items-center gap-1">
-                <span>📝</span>
+              <div className="flex items-center gap-2">
+                <FileQuestion className="w-5 h-5 text-blue-500" />
                 <span>{quizData.questions.length} questions</span>
               </div>
             </div>
@@ -161,21 +162,26 @@ export const QuizLobby = () => {
                 </div>
                 <button
                   onClick={handleStartQuiz}
-                  className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-bold py-4 px-12 rounded-xl text-lg transition-all transform hover:scale-105 shadow-lg"
+                  className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-bold py-4 px-12 rounded-xl text-lg transition-all transform hover:scale-105 shadow-lg flex items-center justify-center gap-2 mx-auto"
                 >
-                  Start Quiz Now →
+                  <span>Start Quiz Now</span>
+                  <Play className="w-5 h-5" fill="currentColor" />
                 </button>
               </div>
             )}
 
             {status === 'ended' && (
               <div className="bg-gray-50 border-2 border-gray-300 rounded-xl p-8">
-                <div className="text-gray-800 font-semibold text-xl mb-2">Quiz has ended</div>
+                <div className="flex items-center justify-center gap-2 text-gray-800 font-semibold text-xl mb-2">
+                  <AlertCircle className="w-6 h-6 text-gray-500" />
+                  Quiz has ended
+                </div>
                 <p className="text-gray-600 mb-4">This quiz is no longer accepting responses</p>
                 <button
                   onClick={() => navigate('/student')}
-                  className="bg-cyan-500 hover:bg-cyan-600 text-white font-semibold py-2 px-6 rounded-lg"
+                  className="bg-cyan-500 hover:bg-cyan-600 text-white font-semibold py-2 px-6 rounded-lg flex items-center justify-center gap-2 mx-auto"
                 >
+                  <Home className="w-4 h-4" />
                   Join Another Quiz
                 </button>
               </div>
@@ -185,10 +191,10 @@ export const QuizLobby = () => {
 
         <div className="bg-white rounded-2xl shadow-xl p-8">
           <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-            <span>👥</span>
-            Participants ({participants.length})
+            <Users className="w-6 h-6 text-cyan-600" />
+            <span>Participants ({participants.length})</span>
           </h2>
-          
+
           {participants.length === 0 ? (
             <p className="text-gray-500 text-center py-8">Waiting for participants...</p>
           ) : (

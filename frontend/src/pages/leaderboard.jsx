@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import { Trophy, Medal, BarChart2, FileText, RotateCcw } from 'lucide-react';
 
 const Leaderboard = () => {
   const navigate = useNavigate();
@@ -13,9 +14,9 @@ const Leaderboard = () => {
   useEffect(() => {
     const studentEmail = sessionStorage.getItem('studentEmail');
     setCurrentUserEmail(studentEmail);
-    
+
     fetchLeaderboard();
-    
+
     const interval = setInterval(fetchLeaderboard, 5000);
     return () => clearInterval(interval);
   }, [quizId]);
@@ -23,14 +24,14 @@ const Leaderboard = () => {
   const fetchLeaderboard = async () => {
     try {
       const response = await axios.get(`http://localhost:4000/api/student/leaderboard/${quizId}`);
-      
+
       if (response.data.success) {
         setQuizData(response.data.quiz);
-        
+
         const participantsWithScores = response.data.participants.map(participant => {
           let score = 0;
           let correctAnswers = 0;
-          
+
           if (participant.answers && response.data.quiz.questions) {
             response.data.quiz.questions.forEach((question, index) => {
               if (participant.answers[index] === question.correctAnswer) {
@@ -39,7 +40,7 @@ const Leaderboard = () => {
               }
             });
           }
-          
+
           return {
             ...participant,
             score,
@@ -48,12 +49,12 @@ const Leaderboard = () => {
             percentage: ((correctAnswers / response.data.quiz.questions.length) * 100).toFixed(1)
           };
         });
-        
+
         participantsWithScores.sort((a, b) => {
           if (b.score !== a.score) return b.score - a.score;
           return new Date(a.completedAt) - new Date(b.completedAt);
         });
-        
+
         setLeaderboard(participantsWithScores);
       }
       setLoading(false);
@@ -63,11 +64,11 @@ const Leaderboard = () => {
     }
   };
 
-  const getMedalEmoji = (rank) => {
-    if (rank === 1) return '🥇';
-    if (rank === 2) return '🥈';
-    if (rank === 3) return '🥉';
-    return rank;
+  const getMedalIcon = (rank, size = "w-8 h-8") => {
+    if (rank === 1) return <Medal className={`${size} text-yellow-500`} fill="currentColor" />;
+    if (rank === 2) return <Medal className={`${size} text-gray-400`} fill="currentColor" />;
+    if (rank === 3) return <Medal className={`${size} text-orange-500`} fill="currentColor" />;
+    return <span className="font-bold text-gray-600">#{rank}</span>;
   };
 
   const getCurrentUserRank = () => {
@@ -92,21 +93,21 @@ const Leaderboard = () => {
   return (
     <div className="min-h-screen bg-white p-4 py-8">
       <div className="max-w-6xl mx-auto">
-        
+
         {/* Header */}
         <div className="text-center mb-10">
           <div className="w-24 h-24 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-2xl">
-            <span className="text-6xl">🏆</span>
+            <Trophy className="w-12 h-12 text-white" />
           </div>
           <h1 className="text-5xl md:text-6xl font-bold text-gray-800 mb-3">Leaderboard</h1>
           <p className="text-xl md:text-2xl text-cyan-600 font-semibold">{quizData?.name}</p>
-          
+
           {currentUserRank && (
             <div className="mt-6 inline-block bg-gradient-to-r from-cyan-50 to-blue-50 border-2 border-cyan-200 rounded-2xl px-8 py-4 shadow-lg">
-              <p className="text-lg font-bold">
+              <p className="text-lg font-bold flex items-center gap-2">
                 <span className="text-gray-600">Your Rank: </span>
-                <span className="text-3xl ml-2">{getMedalEmoji(currentUserRank)}</span>
-                <span className="text-cyan-600 text-2xl font-bold ml-2">#{currentUserRank}</span>
+                {getMedalIcon(currentUserRank, "w-8 h-8")}
+                {currentUserRank > 3 && <span className="text-cyan-600 text-2xl font-bold">#{currentUserRank}</span>}
               </p>
             </div>
           )}
@@ -116,11 +117,11 @@ const Leaderboard = () => {
         {topThree.length >= 3 && (
           <div className="mb-10">
             <div className="grid grid-cols-3 gap-4 max-w-4xl mx-auto">
-              
+
               {/* 2nd Place */}
               <div className="flex flex-col items-center pt-12">
                 <div className="w-20 h-20 bg-gradient-to-br from-gray-300 to-gray-500 rounded-full flex items-center justify-center mb-4 shadow-xl">
-                  <span className="text-5xl">🥈</span>
+                  <Medal className="w-10 h-10 text-white" fill="currentColor" />
                 </div>
                 <div className="bg-white rounded-2xl p-6 w-full text-center shadow-xl">
                   <div className="w-16 h-16 bg-gradient-to-br from-gray-400 to-gray-600 rounded-full flex items-center justify-center text-white font-bold text-2xl mx-auto mb-3 shadow-lg">
@@ -136,7 +137,7 @@ const Leaderboard = () => {
               {/* 1st Place */}
               <div className="flex flex-col items-center">
                 <div className="w-28 h-28 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center mb-4 shadow-2xl animate-pulse">
-                  <span className="text-7xl">🥇</span>
+                  <Medal className="w-14 h-14 text-white" fill="currentColor" />
                 </div>
                 <div className="bg-white rounded-2xl p-6 w-full text-center shadow-2xl border-4 border-yellow-400">
                   <div className="bg-yellow-100 text-yellow-700 px-4 py-1 rounded-full text-xs font-bold mb-3 inline-block">
@@ -155,7 +156,7 @@ const Leaderboard = () => {
               {/* 3rd Place */}
               <div className="flex flex-col items-center pt-16">
                 <div className="w-16 h-16 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center mb-4 shadow-xl">
-                  <span className="text-4xl">🥉</span>
+                  <Medal className="w-8 h-8 text-white" fill="currentColor" />
                 </div>
                 <div className="bg-white rounded-2xl p-5 w-full text-center shadow-xl">
                   <div className="w-14 h-14 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center text-white font-bold text-xl mx-auto mb-3 shadow-lg">
@@ -175,12 +176,12 @@ const Leaderboard = () => {
         <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
           <div className="bg-gradient-to-r from-cyan-500 to-blue-600 px-8 py-6">
             <h2 className="text-2xl md:text-3xl font-bold text-white flex items-center gap-3">
-              <span className="text-3xl"></span>
+              <BarChart2 className="w-8 h-8 text-white" />
               Complete Rankings
               <span className="text-cyan-100 text-lg font-normal">({leaderboard.length} Participants)</span>
             </h2>
           </div>
-          
+
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead className="bg-gray-100">
@@ -196,19 +197,18 @@ const Leaderboard = () => {
                 {leaderboard.map((participant, index) => {
                   const isCurrentUser = participant.email === currentUserEmail;
                   const rank = index + 1;
-                  
+
                   return (
-                    <tr 
-                      key={index} 
-                      className={`transition-all ${
-                        isCurrentUser 
-                          ? 'bg-gradient-to-r from-cyan-50 to-blue-50 border-l-4 border-cyan-500' 
+                    <tr
+                      key={index}
+                      className={`transition-all ${isCurrentUser
+                          ? 'bg-gradient-to-r from-cyan-50 to-blue-50 border-l-4 border-cyan-500'
                           : 'hover:bg-gray-50'
-                      }`}
+                        }`}
                     >
                       <td className="px-6 py-5">
                         <div className="flex items-center gap-3">
-                          <span className="text-4xl">{getMedalEmoji(rank)}</span>
+                          {getMedalIcon(rank, "w-8 h-8")}
                           {rank > 3 && <span className="text-xl font-bold text-gray-600">#{rank}</span>}
                           {isCurrentUser && (
                             <span className="bg-cyan-500 text-white px-3 py-1 rounded-full text-xs font-bold">YOU</span>
@@ -217,12 +217,11 @@ const Leaderboard = () => {
                       </td>
                       <td className="px-6 py-5">
                         <div className="flex items-center gap-4">
-                          <div className={`w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg ${
-                            rank === 1 ? 'bg-gradient-to-br from-yellow-400 to-yellow-600' :
-                            rank === 2 ? 'bg-gradient-to-br from-gray-300 to-gray-500' :
-                            rank === 3 ? 'bg-gradient-to-br from-orange-400 to-orange-600' :
-                            'bg-gradient-to-br from-cyan-500 to-blue-600'
-                          }`}>
+                          <div className={`w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg ${rank === 1 ? 'bg-gradient-to-br from-yellow-400 to-yellow-600' :
+                              rank === 2 ? 'bg-gradient-to-br from-gray-300 to-gray-500' :
+                                rank === 3 ? 'bg-gradient-to-br from-orange-400 to-orange-600' :
+                                  'bg-gradient-to-br from-cyan-500 to-blue-600'
+                            }`}>
                             {participant.name.charAt(0).toUpperCase()}
                           </div>
                           <div>
@@ -239,16 +238,15 @@ const Leaderboard = () => {
                         </span>
                       </td>
                       <td className="px-6 py-5 text-center">
-                        <span className={`inline-flex px-5 py-2 rounded-xl font-bold text-lg ${
-                          participant.percentage >= 80 ? 'bg-green-100 text-green-700' :
-                          participant.percentage >= 60 ? 'bg-yellow-100 text-yellow-700' :
-                          'bg-red-100 text-red-700'
-                        }`}>
+                        <span className={`inline-flex px-5 py-2 rounded-xl font-bold text-lg ${participant.percentage >= 80 ? 'bg-green-100 text-green-700' :
+                            participant.percentage >= 60 ? 'bg-yellow-100 text-yellow-700' :
+                              'bg-red-100 text-red-700'
+                          }`}>
                           {participant.percentage}%
                         </span>
                       </td>
                       <td className="px-6 py-5 text-center text-sm text-gray-600 font-medium">
-                        {participant.completedAt 
+                        {participant.completedAt
                           ? new Date(participant.completedAt).toLocaleTimeString()
                           : 'In Progress'}
                       </td>
@@ -264,15 +262,17 @@ const Leaderboard = () => {
         <div className="mt-10 flex justify-center gap-4 flex-wrap">
           <button
             onClick={() => navigate(`/quiz-results/${quizId}`)}
-            className="bg-gray-100 hover:bg-gray-200 text-gray-800 border-2 border-gray-300 px-8 py-4 rounded-xl font-bold text-lg transition-all shadow-lg"
+            className="bg-gray-100 hover:bg-gray-200 text-gray-800 border-2 border-gray-300 px-8 py-4 rounded-xl font-bold text-lg transition-all shadow-lg flex items-center gap-2"
           >
-             View My Answers
+            <FileText className="w-5 h-5" />
+            View My Answers
           </button>
           <button
             onClick={() => navigate('/student')}
-            className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all shadow-lg"
+            className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all shadow-lg flex items-center gap-2"
           >
-             Take Another Quiz
+            <RotateCcw className="w-5 h-5" />
+            Take Another Quiz
           </button>
         </div>
 
